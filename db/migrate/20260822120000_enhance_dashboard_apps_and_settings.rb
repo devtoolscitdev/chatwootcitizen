@@ -1,5 +1,9 @@
 class EnhanceDashboardAppsAndSettings < ActiveRecord::Migration[7.0]
   def change
+    unless column_exists?(:dashboard_apps, :show_on_sidebar)
+      add_column :dashboard_apps, :show_on_sidebar, :boolean, default: true
+    end
+
     unless column_exists?(:dashboard_apps, :icon)
       add_column :dashboard_apps, :icon, :string, default: 'i-lucide-layout-grid'
     end

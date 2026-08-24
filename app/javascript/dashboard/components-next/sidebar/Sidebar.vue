@@ -620,11 +620,11 @@ const menuItems = computed(() => {
 
   if (dashboardApps.value && dashboardApps.value.length > 0) {
     const mainPlacementApps = dashboardApps.value
-      .filter(app => app.show_on_sidebar && app.sidebar_placement === 'main')
+      .filter(app => app.show_on_sidebar !== false && (app.sidebar_placement === 'main' || !app.sidebar_placement))
       .sort((a, b) => (a.position || 0) - (b.position || 0));
 
     const groupedPlacementApps = dashboardApps.value.filter(
-      app => app.show_on_sidebar && app.sidebar_placement !== 'main'
+      app => app.show_on_sidebar !== false && app.sidebar_placement === 'apps'
     );
 
     // Inserir os apps com placement 'main' como itens de topo da sidebar
@@ -675,6 +675,9 @@ const menuItems = computed(() => {
     Portals: 'help_center',
     'Help Center': 'help_center',
     Captain: 'captain',
+    Companies: 'companies',
+    Calls: 'calls',
+    InternalChat: 'internal_chat',
   };
 
   // 1. Filtrar itens ocultos
