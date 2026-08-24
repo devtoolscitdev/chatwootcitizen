@@ -64,16 +64,6 @@ class Account < ApplicationRecord
   store_accessor :settings, :audio_transcriptions, :auto_resolve_label, :conversation_required_attributes
   store_accessor :settings, :hide_captain, :sidebar_config
 
-  def enable_custom_sidebar
-    return true if custom_attributes.blank? || custom_attributes['enable_custom_sidebar'].nil?
-
-    custom_attributes['enable_custom_sidebar'].to_s == 'true' || custom_attributes['enable_custom_sidebar'] == true
-  end
-
-  def enable_custom_sidebar=(value)
-    self.custom_attributes = (custom_attributes || {}).merge('enable_custom_sidebar' => (value.to_s == 'true' || value == '1' || value == true))
-  end
-
   has_many :account_users, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async
   has_many :agent_bots, dependent: :destroy_async

@@ -16,7 +16,6 @@ json.custom_attributes do
       json.marked_for_deletion_reason resource.custom_attributes['marked_for_deletion_reason']
     end
   end
-  json.enable_custom_sidebar resource.enable_custom_sidebar
 end
 json.domain resource.domain
 json.features resource.enabled_features

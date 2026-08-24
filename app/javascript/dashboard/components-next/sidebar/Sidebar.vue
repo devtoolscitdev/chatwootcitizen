@@ -53,11 +53,10 @@ const isFeatureEnabledonAccount = useMapGetter(
 const dashboardApps = useMapGetter('dashboardApps/getRecords');
 
 const hasSidebarCustomization = computed(() => {
-  const customAttrs = currentAccount.value?.custom_attributes;
-  if (!customAttrs || customAttrs.enable_custom_sidebar === undefined || customAttrs.enable_custom_sidebar === null) {
-    return true;
-  }
-  return customAttrs.enable_custom_sidebar === true || customAttrs.enable_custom_sidebar === 'true';
+  return isFeatureEnabledonAccount.value(
+    accountId.value,
+    FEATURE_FLAGS.SIDEBAR_CUSTOMIZATION
+  );
 });
 
 const toggleShortcutModalFn = show => {
