@@ -662,7 +662,17 @@ const menuItems = computed(() => {
   }
 
   // Personalização da Sidebar (Ocultação e Reordenação Total)
-  const sidebarConfig = currentAccount.value?.settings?.sidebar_config || {};
+  const rawSidebarConfig = currentAccount.value?.settings?.sidebar_config;
+  let sidebarConfig = {};
+  if (typeof rawSidebarConfig === 'string') {
+    try {
+      sidebarConfig = JSON.parse(rawSidebarConfig);
+    } catch (e) {
+      sidebarConfig = {};
+    }
+  } else if (rawSidebarConfig && typeof rawSidebarConfig === 'object') {
+    sidebarConfig = rawSidebarConfig;
+  }
   const hiddenItems = Array.isArray(sidebarConfig.hidden_items) ? sidebarConfig.hidden_items : [];
   const itemOrder = Array.isArray(sidebarConfig.item_order) ? sidebarConfig.item_order : [];
 

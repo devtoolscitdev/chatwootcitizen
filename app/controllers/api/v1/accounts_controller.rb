@@ -49,6 +49,7 @@ class Api::V1::AccountsController < Api::BaseController
     @account.custom_attributes.merge!(custom_attributes_params.to_h)
     @account.settings ||= {}
     @account.settings = @account.settings.merge(settings_params)
+    @account.settings_will_change!
     @account.custom_attributes['onboarding_step'] = 'invite_team' if @account.custom_attributes['onboarding_step'] == 'account_update'
     @account.save!
     render 'api/v1/accounts/show'
