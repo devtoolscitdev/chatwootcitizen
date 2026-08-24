@@ -1,7 +1,7 @@
 json.settings resource.settings
 json.created_at resource.created_at
-if resource.custom_attributes.present?
-  json.custom_attributes do
+json.custom_attributes do
+  if resource.custom_attributes.present?
     json.plan_name resource.custom_attributes['plan_name']
     json.subscribed_quantity resource.custom_attributes['subscribed_quantity']
     json.subscription_status resource.custom_attributes['subscription_status']
@@ -10,13 +10,13 @@ if resource.custom_attributes.present?
     json.company_size resource.custom_attributes['company_size'] if resource.custom_attributes['company_size'].present?
     json.timezone resource.custom_attributes['timezone'] if resource.custom_attributes['timezone'].present?
     json.logo resource.custom_attributes['logo'] if resource.custom_attributes['logo'].present?
-    json.enable_custom_sidebar resource.custom_attributes['enable_custom_sidebar'] if resource.custom_attributes['enable_custom_sidebar'].present?
     json.onboarding_step resource.custom_attributes['onboarding_step'] if resource.custom_attributes['onboarding_step'].present?
     json.marked_for_deletion_at resource.custom_attributes['marked_for_deletion_at'] if resource.custom_attributes['marked_for_deletion_at'].present?
     if resource.custom_attributes['marked_for_deletion_reason'].present?
       json.marked_for_deletion_reason resource.custom_attributes['marked_for_deletion_reason']
     end
   end
+  json.enable_custom_sidebar resource.enable_custom_sidebar
 end
 json.domain resource.domain
 json.features resource.enabled_features

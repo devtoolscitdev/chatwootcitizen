@@ -65,6 +65,8 @@ class Account < ApplicationRecord
   store_accessor :settings, :hide_captain, :sidebar_config
 
   def enable_custom_sidebar
+    return true if custom_attributes.blank? || custom_attributes['enable_custom_sidebar'].nil?
+
     custom_attributes['enable_custom_sidebar'].to_s == 'true' || custom_attributes['enable_custom_sidebar'] == true
   end
 
