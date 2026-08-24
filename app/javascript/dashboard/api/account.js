@@ -6,13 +6,30 @@ class AccountAPI extends ApiClient {
     super('', { accountScoped: true });
   }
 
+  get accountUrl() {
+    return `${this.apiVersion}/accounts/${this.accountIdFromRoute}`;
+  }
+
+  get() {
+    return axios.get(this.accountUrl);
+  }
+
+  update(idOrData, maybeData) {
+    const data = maybeData !== undefined ? maybeData : idOrData;
+    return axios.patch(this.accountUrl, data);
+  }
+
+  delete() {
+    return axios.delete(this.accountUrl);
+  }
+
   createAccount(data) {
     return axios.post(`${this.apiVersion}/accounts`, data);
   }
 
   async getCacheKeys() {
     const response = await axios.get(
-      `/api/v1/accounts/${this.accountIdFromRoute}/cache_keys`
+      `${this.accountUrl}/cache_keys`
     );
     return response.data.cache_keys;
   }

@@ -9,27 +9,28 @@ export const create = (state, data) => {
 export const setSingleRecord = (state, data) => {
   const recordIndex = state.records.findIndex(record => record.id === data.id);
   if (recordIndex > -1) {
-    state.records[recordIndex] = data;
+    state.records.splice(recordIndex, 1, { ...data });
+    state.records = [...state.records];
   } else {
     create(state, data);
   }
 };
 
 export const update = (state, data) => {
-  state.records.forEach((element, index) => {
-    if (element.id === data.id) {
-      state.records[index] = data;
-    }
-  });
+  const recordIndex = state.records.findIndex(record => record.id === data.id);
+  if (recordIndex > -1) {
+    state.records.splice(recordIndex, 1, { ...data });
+    state.records = [...state.records];
+  }
 };
 
 /* when you don't want to overwrite the whole object */
 export const updateAttributes = (state, data) => {
-  state.records.forEach((element, index) => {
-    if (element.id === data.id) {
-      state.records[index] = { ...state.records[index], ...data };
-    }
-  });
+  const recordIndex = state.records.findIndex(record => record.id === data.id);
+  if (recordIndex > -1) {
+    state.records.splice(recordIndex, 1, { ...state.records[recordIndex], ...data });
+    state.records = [...state.records];
+  }
 };
 
 export const updatePresence = (state, data) => {

@@ -10,6 +10,7 @@ if resource.custom_attributes.present?
     json.company_size resource.custom_attributes['company_size'] if resource.custom_attributes['company_size'].present?
     json.timezone resource.custom_attributes['timezone'] if resource.custom_attributes['timezone'].present?
     json.logo resource.custom_attributes['logo'] if resource.custom_attributes['logo'].present?
+    json.enable_custom_sidebar resource.custom_attributes['enable_custom_sidebar'] if resource.custom_attributes['enable_custom_sidebar'].present?
     json.onboarding_step resource.custom_attributes['onboarding_step'] if resource.custom_attributes['onboarding_step'].present?
     json.marked_for_deletion_at resource.custom_attributes['marked_for_deletion_at'] if resource.custom_attributes['marked_for_deletion_at'].present?
     if resource.custom_attributes['marked_for_deletion_reason'].present?
@@ -17,11 +18,11 @@ if resource.custom_attributes.present?
     end
   end
 end
-json.domain @account.domain
-json.features @account.enabled_features
-json.id @account.id
-json.locale @account.locale
-json.name @account.name
-json.support_email @account.support_email
-json.status @account.status
-json.cache_keys @account.cache_keys
+json.domain resource.domain
+json.features resource.enabled_features
+json.id resource.id
+json.locale resource.locale
+json.name resource.name
+json.support_email resource.support_email
+json.status resource.status
+json.cache_keys resource.cache_keys

@@ -96,16 +96,21 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def settings_params
-    params.permit(
+    settings = params.permit(
       :auto_resolve_after,
       :auto_resolve_message,
       :auto_resolve_ignore_waiting,
       :audio_transcriptions,
       :auto_resolve_label,
       :hide_captain,
-      conversation_required_attributes: [],
-      sidebar_config: {}
+      conversation_required_attributes: []
     ).to_h
+
+    if params[:sidebar_config].present?
+      settings['sidebar_config'] = params[:sidebar_config].is_a?(ActionController::Parameters) ? params[:sidebar_config].permit!.to_h : params[:sidebar_config]
+    end
+
+    settings
   end
 
   def check_signup_enabled

@@ -53,10 +53,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 const dashboardApps = useMapGetter('dashboardApps/getRecords');
 
 const hasSidebarCustomization = computed(() => {
-  return isFeatureEnabledonAccount.value(
-    accountId.value,
-    FEATURE_FLAGS.SIDEBAR_CUSTOMIZATION
-  );
+  return currentAccount.value?.custom_attributes?.enable_custom_sidebar === true || currentAccount.value?.custom_attributes?.enable_custom_sidebar === 'true';
 });
 
 const toggleShortcutModalFn = show => {
@@ -152,7 +149,7 @@ const newReportRoutes = () => [
 const reportRoutes = computed(() => newReportRoutes());
 
 const menuItems = computed(() => {
-  return [
+  const items = [
     {
       name: 'Inbox',
       label: t('SIDEBAR.INBOX'),
