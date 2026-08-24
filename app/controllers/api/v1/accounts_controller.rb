@@ -45,10 +45,13 @@ class Api::V1::AccountsController < Api::BaseController
 
   def update
     @account.assign_attributes(account_params.slice(:name, :locale, :domain, :support_email))
-    @account.custom_attributes.merge!(custom_attributes_params)
-    @account.settings.merge!(settings_params)
+    @account.custom_attributes ||= {}
+    @account.custom_attributes.merge!(custom_attributes_params.to_h)
+    @account.settings ||= {}
+    @account.settings = @account.settings.merge(settings_params)
     @account.custom_attributes['onboarding_step'] = 'invite_team' if @account.custom_attributes['onboarding_step'] == 'account_update'
     @account.save!
+    render 'api/v1/accounts/show'
   end
 
   def update_active_at
@@ -88,7 +91,7 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def custom_attributes_params
-    params.permit(:industry, :company_size, :timezone)
+    params.permit(:industry, :company_size, :timezone).to_h
   end
 
   def settings_params
@@ -100,8 +103,8 @@ class Api::V1::AccountsController < Api::BaseController
       :auto_resolve_label,
       :hide_captain,
       conversation_required_attributes: [],
-      sidebar_config: [:hidden_items, :item_order, { hidden_items: [], item_order: [] }]
-    )
+      sidebar_config: {}
+    ).to_h
   end
 
   def check_signup_enabled
