@@ -1,5 +1,5 @@
 <script setup>
-import { h, computed, onMounted } from 'vue';
+import { h, computed, onMounted, watch } from 'vue';
 import { provideSidebarContext } from './provider';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { useKbd } from 'dashboard/composables/utils/useKbd';
@@ -103,6 +103,15 @@ onMounted(() => {
   store.dispatch('customViews/get', 'conversation');
   store.dispatch('customViews/get', 'contact');
   store.dispatch('dashboardApps/get');
+});
+
+watch(accountId, newId => {
+  if (newId) {
+    store.dispatch('labels/get');
+    store.dispatch('inboxes/get');
+    store.dispatch('teams/get');
+    store.dispatch('dashboardApps/get');
+  }
 });
 
 const sortedInboxes = computed(() =>

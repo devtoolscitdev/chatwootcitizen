@@ -43,7 +43,7 @@ export default {
       isLoading: false,
       app: {
         title: '',
-        show_on_sidebar: false,
+        show_on_sidebar: true,
         icon: 'i-lucide-layout-grid',
         position: 0,
         sidebar_placement: 'main',
@@ -78,7 +78,7 @@ export default {
     if (this.mode === 'UPDATE' && this.selectedAppData) {
       this.app.title = this.selectedAppData.title;
       this.app.content = this.selectedAppData.content[0];
-      this.app.show_on_sidebar = this.selectedAppData.show_on_sidebar ?? false;
+      this.app.show_on_sidebar = this.selectedAppData.show_on_sidebar ?? true;
       this.app.icon = this.selectedAppData.icon || 'i-lucide-layout-grid';
       this.app.position = this.selectedAppData.position || 0;
       this.app.sidebar_placement = this.selectedAppData.sidebar_placement || 'main';
@@ -89,7 +89,7 @@ export default {
       // Reset the data once closed
       this.app = {
         title: '',
-        show_on_sidebar: false,
+        show_on_sidebar: true,
         icon: 'i-lucide-layout-grid',
         position: 0,
         sidebar_placement: 'main',
