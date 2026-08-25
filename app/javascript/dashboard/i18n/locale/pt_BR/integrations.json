@@ -217,7 +217,11 @@
         "TITLE_ERROR": "É necessário um nome para o aplicativo",
         "URL_LABEL": "Endpoint",
         "URL_PLACEHOLDER": "Digite a URL do endpoint onde seu aplicativo está hospedado",
-        "URL_ERROR": "É necessário uma URL válida"
+        "URL_ERROR": "É necessário uma URL válida",
+        "SHOW_ON_SIDEBAR_LABEL": "Exibir no Menu Lateral",
+        "SHOW_ON_SIDEBAR_HELP": "Cria um botão de acesso direto para este aplicativo no menu lateral esquerdo.",
+        "SIDEBAR_PLACEMENT_LABEL": "Posição na Sidebar",
+        "ICON_LABEL": "Ícone"
       },
       "CREATE": {
         "HEADER": "Adicionar um novo aplicativo",

@@ -142,7 +142,7 @@ export default {
   <woot-modal :show="show" :on-close="closeModal">
     <div class="flex flex-col h-auto overflow-auto">
       <woot-modal-header :header-title="header" />
-      <form class="w-full" @submit.prevent="submit">
+      <form class="w-full flex flex-col gap-3 mt-2" @submit.prevent="submit">
         <woot-input
           v-model="app.title"
           :class="{ error: v$.app.title.$error }"
@@ -177,40 +177,44 @@ export default {
           @input="v$.app.content.url.$touch"
           @blur="v$.app.content.url.$touch"
         />
-        <div class="flex items-center w-full gap-3 py-2">
-          <label
-            class="text-sm text-n-slate-12 cursor-pointer"
-            for="show-on-sidebar"
-          >
-            {{
-              $t(
-                'INTEGRATION_SETTINGS.DASHBOARD_APPS.FORM.SHOW_ON_SIDEBAR_LABEL'
-              )
-            }}
-          </label>
+
+        <!-- Toggle de Visibilidade no Menu Lateral -->
+        <div class="flex items-center justify-between w-full p-3.5 bg-n-solid-2 border border-n-weak rounded-xl my-1">
+          <div class="flex flex-col pr-3">
+            <label
+              class="text-sm font-medium text-n-slate-12 cursor-pointer"
+              for="show-on-sidebar"
+            >
+              {{ $t('INTEGRATION_SETTINGS.DASHBOARD_APPS.FORM.SHOW_ON_SIDEBAR_LABEL') }}
+            </label>
+            <span class="text-xs text-n-slate-11 mt-0.5">
+              {{ $t('INTEGRATION_SETTINGS.DASHBOARD_APPS.FORM.SHOW_ON_SIDEBAR_HELP') }}
+            </span>
+          </div>
           <ToggleSwitch id="show-on-sidebar" v-model="app.show_on_sidebar" />
         </div>
 
-        <div v-if="app.show_on_sidebar" class="grid grid-cols-2 gap-4 py-2 border-t border-b border-n-weak my-2">
+        <!-- Configurações adicionais se estiver ativo -->
+        <div v-if="app.show_on_sidebar" class="grid grid-cols-2 gap-4 p-4 bg-n-solid-1 border border-n-weak rounded-xl">
           <div>
-            <label class="text-xs font-medium text-n-slate-11 block mb-1">
-              Posição na Sidebar
+            <label class="text-xs font-semibold text-n-slate-12 block mb-1.5">
+              {{ $t('INTEGRATION_SETTINGS.DASHBOARD_APPS.FORM.SIDEBAR_PLACEMENT_LABEL') }}
             </label>
             <select
               v-model="app.sidebar_placement"
-              class="w-full text-sm rounded border border-n-weak bg-n-background px-3 py-2 text-n-slate-12"
+              class="w-full text-sm rounded-lg border border-n-weak bg-n-background px-3 py-2 text-n-slate-12 focus:border-n-brand focus:ring-1 focus:ring-n-brand outline-none cursor-pointer"
             >
               <option value="main">Botão Principal de Topo</option>
               <option value="apps">Submenu "Apps"</option>
             </select>
           </div>
           <div>
-            <label class="text-xs font-medium text-n-slate-11 block mb-1">
-              Ícone
+            <label class="text-xs font-semibold text-n-slate-12 block mb-1.5">
+              {{ $t('INTEGRATION_SETTINGS.DASHBOARD_APPS.FORM.ICON_LABEL') }}
             </label>
             <select
               v-model="app.icon"
-              class="w-full text-sm rounded border border-n-weak bg-n-background px-3 py-2 text-n-slate-12"
+              class="w-full text-sm rounded-lg border border-n-weak bg-n-background px-3 py-2 text-n-slate-12 focus:border-n-brand focus:ring-1 focus:ring-n-brand outline-none cursor-pointer"
             >
               <option
                 v-for="iconOption in availableIcons"
@@ -223,7 +227,7 @@ export default {
           </div>
         </div>
 
-        <div class="flex flex-row justify-end w-full gap-2 px-0 py-2">
+        <div class="flex flex-row justify-end w-full gap-2 pt-3 border-t border-n-weak">
           <NextButton
             faded
             slate
