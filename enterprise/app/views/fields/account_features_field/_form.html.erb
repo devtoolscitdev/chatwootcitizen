@@ -2,47 +2,32 @@
   <%= f.label field.attribute, "Recursos e Visibilidade da Conta" %>
 </div>
 <div class="field-unit__field feature-container w-full">
-  <% regular_features, premium_features = SuperAdmin::AccountFeaturesHelper.filtered_features(field.data).partition { |key_array, _val| !SuperAdmin::AccountFeaturesHelper.account_premium_features.include?(key_array.first) } %>
+  <% categorized = SuperAdmin::AccountFeaturesHelper.categorized_features(field.data) %>
 
-  <div class="mb-4">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">Recursos Padrão</h4>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-      <% regular_features.each do |key_array, val| %>
-        <% feature_key, display_name = key_array %>
-        <label class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200 shadow-sm hover:border-slate-300 cursor-pointer transition-all">
-          <span class="text-sm font-medium text-slate-700"><%= display_name %></span>
-          <div class="flex items-center gap-2">
-            <%= check_box "enabled_features", "feature_#{feature_key}", { checked: val, class: "h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" }, true, false %>
-          </div>
-        </label>
-      <% end %>
-    </div>
-  </div>
+  <% categorized.each_with_index do |group, index| %>
+    <% if group[:features].present? %>
+      <div class="<%= 'mt-8 pt-6 border-t border-slate-200' if index > 0 %>">
+        <div class="mb-3">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+            <%= group[:title] %>
+          </h4>
+          <% if group[:description].present? %>
+            <p class="text-xs text-slate-500 mt-0.5"><%= group[:description] %></p>
+          <% end %>
+        </div>
 
-  <hr class="my-6 border-slate-200">
-
-  <div>
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-amber-500 flex items-center">
-        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480 224l-186.828 7.487L401.688 64l-59.247-32L256 208 169.824 32l-59.496 32 108.5 167.487L32 224v64l185.537-10.066L113.65 448l55.969 32L256 304l86.381 176 55.949-32-103.867-170.066L480 288z" fill="currentColor"/></svg>
-      </span>
-      <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">Recursos Avançados / Premium (Audit Logs, Captain, SLA, SAML, Roles, etc.)</h4>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-      <% premium_features.each do |key_array, val| %>
-        <% feature_key, display_name = key_array %>
-        <label class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200 shadow-sm hover:border-amber-300 cursor-pointer transition-all">
-          <div class="flex items-center gap-2">
-            <span class="text-amber-500">
-              <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480 224l-186.828 7.487L401.688 64l-59.247-32L256 208 169.824 32l-59.496 32 108.5 167.487L32 224v64l185.537-10.066L113.65 448l55.969 32L256 304l86.381 176 55.949-32-103.867-170.066L480 288z" fill="currentColor"/></svg>
-            </span>
-            <span class="text-sm font-medium text-slate-700"><%= display_name %></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <%= check_box "enabled_features", "feature_#{feature_key}", { checked: val, class: "h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" }, true, false %>
-          </div>
-        </label>
-      <% end %>
-    </div>
-  </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          <% group[:features].each do |key_array, val| %>
+            <% feature_key, display_name = key_array %>
+            <label class="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200 shadow-sm hover:border-indigo-300 cursor-pointer transition-all">
+              <span class="text-sm font-medium text-slate-700"><%= display_name %></span>
+              <div class="flex items-center gap-2">
+                <%= check_box "enabled_features", "feature_#{feature_key}", { checked: val, class: "h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" }, true, false %>
+              </div>
+            </label>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>

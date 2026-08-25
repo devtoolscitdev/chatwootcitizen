@@ -554,12 +554,16 @@ const menuItems = computed(() => {
       label: t('SIDEBAR.SETTINGS'),
       icon: 'i-lucide-bolt',
       children: [
-        {
-          name: 'Settings Account Settings',
-          label: t('SIDEBAR.ACCOUNT_SETTINGS'),
-          icon: 'i-lucide-briefcase',
-          to: accountScopedRoute('general_settings_index'),
-        },
+        ...(hasFeature(FEATURE_FLAGS.ACCOUNT_SETTINGS)
+          ? [
+              {
+                name: 'Settings Account Settings',
+                label: t('SIDEBAR.ACCOUNT_SETTINGS'),
+                icon: 'i-lucide-briefcase',
+                to: accountScopedRoute('general_settings_index'),
+              },
+            ]
+          : []),
         ...(hasFeature(FEATURE_FLAGS.AGENT_MANAGEMENT)
           ? [
               {
@@ -580,12 +584,16 @@ const menuItems = computed(() => {
               },
             ]
           : []),
-        {
-          name: 'Settings Agent Assignment',
-          label: t('SIDEBAR.AGENT_ASSIGNMENT'),
-          icon: 'i-lucide-user-cog',
-          to: accountScopedRoute('assignment_policy_index'),
-        },
+        ...(hasFeature(FEATURE_FLAGS.ASSIGNMENT_POLICY) || hasFeature(FEATURE_FLAGS.ASSIGNMENT_V2)
+          ? [
+              {
+                name: 'Settings Agent Assignment',
+                label: t('SIDEBAR.AGENT_ASSIGNMENT'),
+                icon: 'i-lucide-user-cog',
+                to: accountScopedRoute('assignment_policy_index'),
+              },
+            ]
+          : []),
         ...(hasFeature(FEATURE_FLAGS.INBOX_MANAGEMENT)
           ? [
               {

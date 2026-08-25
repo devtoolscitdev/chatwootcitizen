@@ -44,6 +44,8 @@ export const FEATURE_FLAGS = {
   QUOTED_EMAIL_REPLY: 'quoted_email_reply',
   COMPANIES: 'companies',
   SIDEBAR_CUSTOMIZATION: 'sidebar_customization',
+  ACCOUNT_SETTINGS: 'account_settings',
+  ASSIGNMENT_POLICY: 'assignment_policy',
 };
 
 export const PREMIUM_FEATURES = [

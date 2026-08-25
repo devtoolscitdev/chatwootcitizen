@@ -233,4 +233,11 @@
 - name: sidebar_customization
   display_name: Custom Sidebar Settings
   enabled: true
+- name: account_settings
+  display_name: Conta (Account Settings)
+  enabled: true
+- name: assignment_policy
+  display_name: Atribuição de Agentes (Agent Assignment)
+  enabled: true
+
 
