@@ -45,18 +45,24 @@ export default {
       return { id, name, email };
     },
   },
-  watch: {
-    isVisible() {
-      if (this.isVisible) {
-        this.hasOpenedAtleastOnce = true;
-      }
-    },
-  },
   mounted() {
+    if (this.isVisible) {
+      this.hasOpenedAtleastOnce = true;
+    }
     window.addEventListener('message', this.triggerEvent);
   },
   unmounted() {
     window.removeEventListener('message', this.triggerEvent);
+  },
+  watch: {
+    isVisible: {
+      immediate: true,
+      handler(val) {
+        if (val) {
+          this.hasOpenedAtleastOnce = true;
+        }
+      },
+    },
   },
   methods: {
     triggerEvent(event) {
