@@ -21,15 +21,15 @@
 - name: LOGO_THUMBNAIL
   value: '/brand-assets/logo_thumbnail.svg'
   display_title: 'Logo Thumbnail'
-  description: 'The thumbnail that would be used for favicon (512px X 512px)'
+  description: 'The thumbnail/icon used for favicon, sidebar icon, and chat widget. Recommended: 512px X 512px (square, 1:1). Formats: SVG, PNG, JPG, WebP. Max size: 5MB.'
 - name: LOGO
   value: '/brand-assets/logo.svg'
-  display_title: 'Logo'
-  description: 'The logo that would be used on the dashboard, login page etc.'
+  display_title: 'Logo (Light Mode)'
+  description: 'The logo used on the dashboard, login page, signup page etc. (Light Mode). Recommended: 240px X 40px (height ~32-40px). Formats: SVG, PNG, JPG, WebP. Max size: 5MB.'
 - name: LOGO_DARK
   value: '/brand-assets/logo_dark.svg'
-  display_title: 'Logo Dark Mode'
-  description: 'The logo that would be used on the dashboard, login page etc. for dark mode'
+  display_title: 'Logo (Dark Mode)'
+  description: 'The logo used on the dashboard, login page, signup page etc. (Dark Mode). Recommended: 240px X 40px (height ~32-40px). Formats: SVG, PNG, JPG, WebP. Max size: 5MB.'
 - name: BRAND_URL
   value: 'https://www.chatwoot.com'
   display_title: 'Brand URL'
