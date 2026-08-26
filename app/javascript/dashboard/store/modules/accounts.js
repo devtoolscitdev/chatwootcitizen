@@ -1,6 +1,7 @@
 import * as MutationHelpers from 'shared/helpers/vuex/mutationHelpers';
 import * as types from '../mutation-types';
 import AccountAPI from '../../api/account';
+import AccountLogoAPI from '../../api/accountLogo';
 import { differenceInDays } from 'date-fns';
 import EnterpriseAccountAPI from '../../api/enterprise/account';
 import { throwErrorMessage } from '../utils/api';
@@ -155,6 +156,40 @@ export const actions = {
 
   getCacheKeys: async () => {
     return AccountAPI.getCacheKeys();
+  },
+
+  updateLogo: async ({ commit }, { logoType, blobId }) => {
+    commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: true });
+    try {
+      const apiMethods = {
+        logo: () => AccountLogoAPI.updateLogo(blobId),
+        logo_dark: () => AccountLogoAPI.updateLogoDark(blobId),
+        logo_thumbnail: () => AccountLogoAPI.updateLogoThumbnail(blobId),
+      };
+      const response = await apiMethods[logoType]();
+      commit(types.default.EDIT_ACCOUNT, response.data);
+      commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
+    } catch (error) {
+      commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
+      throw new Error(error);
+    }
+  },
+
+  deleteLogo: async ({ commit }, { logoType }) => {
+    commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: true });
+    try {
+      const apiMethods = {
+        logo: () => AccountLogoAPI.deleteLogo(),
+        logo_dark: () => AccountLogoAPI.deleteLogoDark(),
+        logo_thumbnail: () => AccountLogoAPI.deleteLogoThumbnail(),
+      };
+      const response = await apiMethods[logoType]();
+      commit(types.default.EDIT_ACCOUNT, response.data);
+      commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
+    } catch (error) {
+      commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
+      throw new Error(error);
+    }
   },
 };
 

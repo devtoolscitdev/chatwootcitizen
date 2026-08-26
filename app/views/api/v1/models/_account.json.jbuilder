@@ -25,3 +25,8 @@ json.name resource.name
 json.support_email resource.support_email
 json.status resource.status
 json.cache_keys resource.cache_keys
+json.custom_logos do
+  json.logo resource.custom_logo_url
+  json.logo_dark resource.custom_logo_dark_url
+  json.logo_thumbnail resource.custom_logo_thumbnail_url
+end

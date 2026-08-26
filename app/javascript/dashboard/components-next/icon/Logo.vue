@@ -1,16 +1,25 @@
 <script setup>
-import { useAttrs } from 'vue';
+import { computed, useAttrs } from 'vue';
 import { useMapGetter } from 'dashboard/composables/store';
+import { useAccount } from 'dashboard/composables/useAccount';
 
 const attrs = useAttrs();
 const globalConfig = useMapGetter('globalConfig/get');
+const { currentAccount } = useAccount();
+
+const logoSrc = computed(() => {
+  return (
+    currentAccount.value?.custom_logos?.logo_thumbnail ||
+    globalConfig.value?.logoThumbnail
+  );
+});
 </script>
 
 <template>
   <img
-    v-if="globalConfig.logoThumbnail"
+    v-if="logoSrc"
     v-bind="attrs"
-    :src="globalConfig.logoThumbnail"
+    :src="logoSrc"
   />
   <svg
     v-else

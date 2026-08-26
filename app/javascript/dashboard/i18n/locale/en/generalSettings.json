@@ -121,6 +121,35 @@
       "FEATURES": {
         "INBOUND_EMAIL_ENABLED": "Conversation continuity with emails is enabled for your account.",
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "You can receive emails in your custom domain now."
+      },
+      "CUSTOM_BRANDING": {
+        "TITLE": "Brand Customization",
+        "NOTE": "Upload custom logos to replace the default branding across the platform. Each logo has specific size recommendations for optimal display.",
+        "LOGO": {
+          "LABEL": "Logo (Light Mode)",
+          "HELP": "Displayed on login page and dashboard in light mode. Recommended: 240×40px. Formats: SVG, PNG, JPG, WebP. Max: 5MB"
+        },
+        "LOGO_DARK": {
+          "LABEL": "Logo (Dark Mode)",
+          "HELP": "Displayed on login page and dashboard in dark mode. Recommended: 240×40px. Formats: SVG, PNG, JPG, WebP. Max: 5MB"
+        },
+        "LOGO_THUMBNAIL": {
+          "LABEL": "Icon / Thumbnail",
+          "HELP": "Used as favicon, sidebar icon and chat widget icon. Recommended: 512×512px (square). Formats: SVG, PNG, JPG, WebP. Max: 5MB"
+        },
+        "UPLOAD": "Upload",
+        "REMOVE": "Remove",
+        "CURRENT_LOGO": "Current logo",
+        "NO_LOGO": "No custom logo set. Using default.",
+        "REMOVE_CONFIRM": "Are you sure you want to remove this logo? The default logo will be used instead.",
+        "API": {
+          "SUCCESS": "Logo updated successfully",
+          "DELETE_SUCCESS": "Logo removed successfully. Default logo will be used.",
+          "ERROR": "Failed to update logo. Please try again.",
+          "DELETE_ERROR": "Failed to remove logo. Please try again.",
+          "SIZE_ERROR": "File is too large. Maximum size is 5MB.",
+          "FORMAT_ERROR": "Unsupported file format. Please use SVG, PNG, JPG or WebP."
+        }
       }
     },
     "UPDATE_CHATWOOT": "An update {latestChatwootVersion} for Chatwoot is available. Please update your instance.",

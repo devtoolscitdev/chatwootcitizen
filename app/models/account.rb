@@ -108,9 +108,30 @@ class Account < ApplicationRecord
   has_many :working_hours, dependent: :destroy_async
 
   has_one_attached :contacts_export
+  has_one_attached :custom_logo
+  has_one_attached :custom_logo_dark
+  has_one_attached :custom_logo_thumbnail
+
+  ALLOWED_LOGO_TYPES = %w[image/png image/jpeg image/svg+xml image/webp].freeze
+  MAXIMUM_LOGO_SIZE = 5.megabytes
 
   enum :locale, LANGUAGES_CONFIG.map { |key, val| [val[:iso_639_1_code], key] }.to_h, prefix: true
   enum :status, { active: 0, suspended: 1 }
+
+  validate :validate_logo_content_type
+  validate :validate_logo_file_size
+
+  def custom_logo_url
+    custom_logo.attached? ? Rails.application.routes.url_helpers.url_for(custom_logo) : nil
+  end
+
+  def custom_logo_dark_url
+    custom_logo_dark.attached? ? Rails.application.routes.url_helpers.url_for(custom_logo_dark) : nil
+  end
+
+  def custom_logo_thumbnail_url
+    custom_logo_thumbnail.attached? ? Rails.application.routes.url_helpers.url_for(custom_logo_thumbnail) : nil
+  end
 
   scope :with_auto_resolve, -> { where("(settings ->> 'auto_resolve_after')::int IS NOT NULL") }
 
@@ -183,6 +204,30 @@ class Account < ApplicationRecord
 
   def validate_limit_keys
     # method overridden in enterprise module
+  end
+
+  def validate_logo_content_type
+    %i[custom_logo custom_logo_dark custom_logo_thumbnail].each do |logo_field|
+      attachment = send(logo_field)
+      next unless attachment.attached? && attachment.blob.present?
+      next if attachment.blob.persisted? && !attachment.changed?
+
+      unless ALLOWED_LOGO_TYPES.include?(attachment.blob.content_type)
+        errors.add(logo_field, 'must be a PNG, JPG, SVG, or WebP image')
+      end
+    end
+  end
+
+  def validate_logo_file_size
+    %i[custom_logo custom_logo_dark custom_logo_thumbnail].each do |logo_field|
+      attachment = send(logo_field)
+      next unless attachment.attached? && attachment.blob.present?
+      next if attachment.blob.persisted? && !attachment.changed?
+
+      if attachment.blob.byte_size > MAXIMUM_LOGO_SIZE
+        errors.add(logo_field, 'file size must be less than 5MB')
+      end
+    end
   end
 
   def remove_account_sequences

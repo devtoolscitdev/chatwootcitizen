@@ -121,6 +121,35 @@
       "FEATURES": {
         "INBOUND_EMAIL_ENABLED": "A continuidade das conversas com e-mails está ativada para sua conta.",
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Você pode receber e-mails em seu domínio personalizado agora."
+      },
+      "CUSTOM_BRANDING": {
+        "TITLE": "Personalização da Marca",
+        "NOTE": "Envie logotipos personalizados para substituir a marca padrão em toda a plataforma. Cada logotipo possui recomendações de tamanho específicas para melhor exibição.",
+        "LOGO": {
+          "LABEL": "Logotipo (Modo Claro)",
+          "HELP": "Exibido na página de login e painel no modo claro. Recomendado: 240×40px. Formatos: SVG, PNG, JPG, WebP. Máx: 5MB"
+        },
+        "LOGO_DARK": {
+          "LABEL": "Logotipo (Modo Escuro)",
+          "HELP": "Exibido na página de login e painel no modo escuro. Recomendado: 240×40px. Formatos: SVG, PNG, JPG, WebP. Máx: 5MB"
+        },
+        "LOGO_THUMBNAIL": {
+          "LABEL": "Ícone / Miniatura",
+          "HELP": "Usado como favicon, ícone da barra lateral e ícone do widget de chat. Recomendado: 512×512px (quadrado). Formatos: SVG, PNG, JPG, WebP. Máx: 5MB"
+        },
+        "UPLOAD": "Enviar",
+        "REMOVE": "Remover",
+        "CURRENT_LOGO": "Logotipo atual",
+        "NO_LOGO": "Nenhum logotipo personalizado. Usando o padrão.",
+        "REMOVE_CONFIRM": "Tem certeza de que deseja remover este logotipo? O logotipo padrão será usado.",
+        "API": {
+          "SUCCESS": "Logotipo atualizado com sucesso",
+          "DELETE_SUCCESS": "Logotipo removido com sucesso. O logotipo padrão será utilizado.",
+          "ERROR": "Falha ao atualizar o logotipo. Por favor, tente novamente.",
+          "DELETE_ERROR": "Falha ao remover o logotipo. Por favor, tente novamente.",
+          "SIZE_ERROR": "O arquivo é muito grande. O tamanho máximo permitido é 5MB.",
+          "FORMAT_ERROR": "Formato de arquivo não suportado. Por favor, use SVG, PNG, JPG ou WebP."
+        }
       }
     },
     "UPDATE_CHATWOOT": "Uma atualização {latestChatwootVersion} para o Chatwoot está disponível. Por favor, atualize sua instância.",

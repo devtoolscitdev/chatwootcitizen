@@ -61,6 +61,30 @@ class Api::V1::AccountsController < Api::BaseController
     head :ok
   end
 
+  def update_logo
+    process_logo_upload(:custom_logo)
+  end
+
+  def update_logo_dark
+    process_logo_upload(:custom_logo_dark)
+  end
+
+  def update_logo_thumbnail
+    process_logo_upload(:custom_logo_thumbnail)
+  end
+
+  def delete_logo
+    process_logo_delete(:custom_logo)
+  end
+
+  def delete_logo_dark
+    process_logo_delete(:custom_logo_dark)
+  end
+
+  def delete_logo_thumbnail
+    process_logo_delete(:custom_logo_thumbnail)
+  end
+
   private
 
   def ensure_account_name
@@ -127,5 +151,22 @@ class Api::V1::AccountsController < Api::BaseController
       account: @account,
       account_user: @current_account_user
     }
+  end
+
+  def process_logo_upload(logo_field)
+    blob_id = params[:blob_id]
+    return head :unprocessable_entity if blob_id.blank?
+
+    blob = ActiveStorage::Blob.find_signed(blob_id)
+    return head :not_found unless blob
+
+    @account.send(logo_field).attach(blob)
+    render 'api/v1/accounts/show', format: :json
+  end
+
+  def process_logo_delete(logo_field)
+    attachment = @account.send(logo_field)
+    attachment.purge if attachment.attached?
+    render 'api/v1/accounts/show', format: :json
   end
 end
